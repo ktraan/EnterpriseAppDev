@@ -22,6 +22,17 @@
   - This is done with with the ```<property name="javax.persistence.schema-generation.database.action" value="create"/>```
   - ``` <!-- database.action or scripts.action value: none, create, drop-and-create, drop --> ``` never use drop-and-create IRL
 
+### CRUD with JPA
+- To perform CRUD operations with JPA, first you will need:
+```java
+// This persistence will assign 
+@PersistenceContext(unitName = "mssql-jpa-pu")
+private EntityManager entityManager;
+```
+- create -> persist
+- read -> find, createQuery
+- update -> merge
+- delete -> remove
 
 ## Batch Proccessing
 - Batch proccessing is proccessing large amounts of data
@@ -29,11 +40,30 @@
   - There can be many ```<steps>```
   - You set a listener in the batchlet check the different steps of the batch job
 - The path MUST be src/main/resources -> META-INF -> batch-jobs
+  - The wizard will automatically direct you to this patch
 - The name of the xml file is important because it will be called later on to import data
-- A batchlet will proccess data and will return either if it fails or is completed
+- Batchlets are task oriented step that is called once.
+  - It either succeeds or fails. If it fails, it CAN be restarted and it runs again.
 - **The curl command is used to execute batch jobs**
+
 ### Batch Proccessing APIS
   - An EntityManager instance is associated with a persistence context. A persistence context is a set of entity instances in       which for any persistent entity identity there is a unique entity instance
 - The JobOperater  allows us to perform batch jobs, through the JobOperator a program can start, stop, and restart jobs
 
+## Creating Web APIs
+- In the JAXRSConfiguration.java change the annotation to ```@ApplicationPath("webapi")```
+- This makes the URL to http://server//webapi/
+- In the resource class (Where we create the API)
+```java
+// This path will be the next part of the URL (http://server//webapi/pez)
+@Path("pez")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+```
+- Http Methods: 
+  - POST(sends request/ passing data) 
+    - There are 4 different ways to pass data: JSON, Form, Text, or Query
+  - GET(retrieves data) 
+  - PUT(updates info) 
+  - DELETE(delete)
 
