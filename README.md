@@ -1,4 +1,4 @@
-# Enterprise Application Development
+# Working with Eclipse EE with Java
 ## General Information
 
 ## Annotations
@@ -52,7 +52,7 @@ private EntityManager entityManager;
 
 ## Creating Web APIs
 - In the JAXRSConfiguration.java change the annotation to ```@ApplicationPath("webapi")```
-- This makes the URL to http://server//webapi/
+- This makes the URL to http://server//webapi/ , allowing us to deploy to the root context
 - In the resource class (Where we create the API)
 ```java
 // This path will be the next part of the URL (http://server//webapi/pez)
